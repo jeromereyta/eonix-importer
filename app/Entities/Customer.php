@@ -130,19 +130,6 @@ class Customer
         return $this->phone;
     }
 
-    public function getCustomerDetails()
-    {
-        return [
-            'full_name' => $this->first_name . ' ' . $this->last_name,
-            'email'     => $this->email,
-            'password'  => $this->password,
-            'gender'    => $this->gender,
-            'country'   => $this->country,
-            'city'      => $this->city,
-            'phone'     => $this->phone,
-        ];
-    }
-
     public function getCustomer()
     {
         return [

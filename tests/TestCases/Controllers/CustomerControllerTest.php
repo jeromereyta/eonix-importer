@@ -18,6 +18,22 @@ class CustomerControllerTest extends TestCase
         ]);
     }
 
+    public function testCanViewAllCustomersWithPagination()
+    {
+        $this->get("customers?page=1&limit=10", []);
+        $this->seeStatusCode(200);
+        $this->seeJsonStructure([
+            'data' => ['*' =>
+                [
+                    'full_name',
+                    'email',
+                    'country',
+                ],
+            ],
+        ]);
+    }
+
+
     public function testCanViewSpecificCustomer()
     {
         $this->get("customers/1", []);
@@ -36,4 +52,9 @@ class CustomerControllerTest extends TestCase
         ]);
     }
 
+    public function testCannotViewSpecificCustomer()
+    {
+        $this->get("customers/0", []);
+        $this->seeStatusCode(404);
+    }
 }

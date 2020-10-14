@@ -9,7 +9,8 @@
         "laravel/lumen-framework": "5.6.*",
         "vlucas/phpdotenv": "~2.2",
         "laravel-doctrine/orm": "^1.4",
-        "guzzlehttp/guzzle": "^7.1"
+        "guzzlehttp/guzzle": "^7.1",
+        "league/fractal": "^0.19.2"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

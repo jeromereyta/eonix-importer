@@ -6,11 +6,16 @@ use App\Entities\Customer;
 use App\Http\Controllers\Controller;
 use App\Services\ImportService;
 use Doctrine\ORM\EntityManagerInterface;
+use Illuminate\Http\Request;
+use LaravelDoctrine\ORM\Pagination\PaginatesFromParams;
+use App\Transformers\CustomerTransformer;
 
 class CustomerController extends Controller
 {
     protected $importService;
     protected $entityManager;
+
+    use PaginatesFromParams;
 
     /**
      * Customer Controller constructor.
@@ -25,17 +30,19 @@ class CustomerController extends Controller
         $this->entityManager = $entityManager;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $customers = $this->entityManager->getRepository(Customer::class)->findAll();
+        $input = $request->all();
 
-        $results = [
-            'data' => [],
-        ];
+        $page  = (!empty($input['page']) && is_numeric($input['page'])) ? (int) $input['page'] : 1;
+        $limit = (!empty($input['limit']) && is_numeric($input['limit'])) ? (int) $input['limit'] : 15;
 
-        foreach ($customers as $key => $customer) {
-            $results['data'][] = $customer->getCustomer();
-        }
+        $builder = $this->entityManager->getRepository(Customer::class)->createQueryBuilder('o');
+        $customers = $this->paginate($builder->getQuery(), $limit, $page,false);
+        
+        $results = $customers->toArray();
+
+        $results['data'] = (new CustomerTransformer)->transformCustomers($customers->getIterator());
 
         return response()->json($results);
     }
@@ -48,7 +55,7 @@ class CustomerController extends Controller
             return response()->json(['error' => 'Not found'], 404, ['X-Header-One' => 'Header Value']);
         }
 
-        return response()->json(['data' => $customer->getCustomerDetails()]);
+        return response()->json(['data' => (new CustomerTransformer)->transformCustomer($customer)]);
     }
 
     public function importCustomers()
@@ -56,4 +63,5 @@ class CustomerController extends Controller
         return $this->importService->importCustomers();
     }
 
+    private function createQueryBuilder(){}
 }
