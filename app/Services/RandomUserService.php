@@ -39,8 +39,6 @@ class RandomUserService implements DataProvider
         if ($response->getStatusCode() == 200) {
 
             $customers = json_decode($response->getBody(), true)['results'];
-
-            $customers = $this->formatCustomersData($customers);
         }
 
         return $customers;

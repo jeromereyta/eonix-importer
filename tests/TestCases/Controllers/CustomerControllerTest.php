@@ -3,6 +3,8 @@
 class CustomerControllerTest extends TestCase
 {
 
+    
+
     public function testCanViewAllCustomers()
     {
         $this->get("customers", []);
@@ -32,7 +34,6 @@ class CustomerControllerTest extends TestCase
             ],
         ]);
     }
-
 
     public function testCanViewSpecificCustomer()
     {

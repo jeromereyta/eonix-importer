@@ -8,13 +8,13 @@ class CustomerTransformer
     public function transformCustomer(Customer $customer)
     {
         return [
-            'full_name' => $this->getFirstname() . ' ' . $this->getLastname(),
-            'email'     => $this->getEmail(),
-            'password'  => $this->getPassword(),
-            'gender'    => $this->getGender(),
-            'country'   => $this->getCountry(),
-            'city'      => $this->getCity(),
-            'phone'     => $this->getPhone(),
+            'full_name' => $customer->getFirstname() . ' ' . $customer->getLastname(),
+            'email'     => $customer->getEmail(),
+            'password'  => $customer->getPassword(),
+            'gender'    => $customer->getGender(),
+            'country'   => $customer->getCountry(),
+            'city'      => $customer->getCity(),
+            'phone'     => $customer->getPhone(),
         ];
     }
 

@@ -39,7 +39,7 @@ class CustomerRepository
                 $createCustomers[] = $customer;
             }
         }
-
+        
         foreach ($createCustomers as $key => $newCustomer) {
 
             $newData = new Customer(
@@ -97,14 +97,17 @@ class CustomerRepository
 
     public function getCustomersEmailsThatAlreadyExist(array $emails = [])
     {
-        $existingCustomers = $this->entityManager->getRepository(Customer::class)->findBy([
-            'email' => $emails,
-        ]);
-
         $results = [];
 
-        foreach ($existingCustomers as $key => $customer) {
-            $results[] = $customer->getEmail();
+        if (!empty($emails)) {
+
+            $existingCustomers = $this->entityManager->getRepository(Customer::class)->findBy([
+                'email' => $emails,
+            ]);
+
+            foreach ($existingCustomers as $key => $customer) {
+                $results[] = $customer->getEmail();
+            }
         }
 
         return $results;

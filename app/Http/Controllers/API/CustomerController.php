@@ -60,7 +60,9 @@ class CustomerController extends Controller
 
     public function importCustomers()
     {
-        return $this->importService->importCustomers();
+        $customers = $this->importService->generateCustomersFromDataProvider();
+        
+        return $this->importService->importCustomers($customers);
     }
 
     private function createQueryBuilder(){}

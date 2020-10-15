@@ -2,11 +2,9 @@
 
 namespace App\Console\Commands;
 
+use App\Services\ImportService;
 use Exception;
 use Illuminate\Console\Command;
-use App\Services\ImportService;
-
-
 
 /**
  * Class ImportCommand
@@ -38,7 +36,6 @@ class ImportCustomerCommand extends Command
         $this->importService = $importService;
     }
 
-
     /**
      * Execute the console command.
      *
@@ -47,7 +44,11 @@ class ImportCustomerCommand extends Command
     public function handle()
     {
         try {
-            $this->importService->importCustomers();
+    
+            $customers = $this->importService->generateCustomersFromDataProvider();
+    
+            $this->importService->importCustomers($customers);
+    
             $this->info("Done");
         } catch (Exception $e) {
             $this->error("An error occurred");

@@ -106,4 +106,7 @@ $app->router->group(['namespace' => 'App\Http\Controllers\API',], function ($rou
     require __DIR__.'/../routes/api.php';
 });
 
+
+$app->configure('queue');
+
 return $app;

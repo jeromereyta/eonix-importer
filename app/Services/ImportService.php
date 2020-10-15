@@ -16,10 +16,15 @@ class ImportService
         $this->dataProvider       = $dataProvider;
     }
 
-    public function importCustomers()
+
+    public function generateCustomersFromDataProvider() {
+        return $this->dataProvider->fetchDataFromDataProvider();
+    }
+
+    public function importCustomers($customers)
     {
-        $customers = $this->dataProvider->fetchDataFromDataProvider();
-    
+        $customers = $this->dataProvider->formatCustomersData($customers);
+
         return $this->customerRepository->importCustomersData($customers);
     }
 }
