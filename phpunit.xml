@@ -8,15 +8,6 @@
          convertWarningsToExceptions="true"
          processIsolation="false"
          stopOnFailure="false">
-    <!-- Add this for PHPUnit 7.5 or higher -->
-    <extensions>
-        <extension class="DAMA\DoctrineTestBundle\PHPUnit\PHPUnitExtension"/>
-    </extensions>
-
-    <!-- Add this for PHPUnit 7.0 until 7.4 -->
-    <listeners>
-        <listener class="\DAMA\DoctrineTestBundle\PHPUnit\PHPUnitListener"/>
-    </listeners>         
     <testsuites>
         <testsuite name="Application Test Suite">
             <directory suffix="Test.php">./tests</directory>
